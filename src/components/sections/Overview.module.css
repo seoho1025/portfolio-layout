@@ -87,12 +87,6 @@
   margin-top: var(--space-3);
 }
 
-.itemDesc {
-  font-size: var(--font-size-base);
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-3);
-}
-
 .itemCta {
   background: none;
   border: 0;
@@ -166,26 +160,17 @@
   color: var(--color-text-strong);
 }
 
-.cardPreview {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-.cardPreview li {
-  font-size: var(--font-size-sm);
+.cardDesc {
+  margin-block: auto; /* 카드 안 세로 가운데 */
+  transform: translateY(-16px);
+  font-size: var(--font-size-base);
   line-height: 1.5;
+  text-align: center;
   color: var(--color-text-muted);
 }
-.cardPreview li:first-child {
-  font-weight: var(--font-weight-bold);
-  color: var(--color-text);
-}
-
-.cardCta {
-  margin-top: auto;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-bold);
+.em {
   color: var(--color-main);
+  font-weight: var(--font-weight-bold);
 }
 
 /* 진행 눈금 */

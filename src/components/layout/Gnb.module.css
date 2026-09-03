@@ -50,8 +50,9 @@
   color: var(--color-main);
 }
 
+/* 현재 보고 있는 섹션: 메인 색 고정 */
 .link[data-active='true'] {
-  color: var(--color-text-strong);
+  color: var(--color-main);
 }
 
 .actions {

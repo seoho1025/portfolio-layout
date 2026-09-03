@@ -70,7 +70,6 @@ export default function Overview() {
                   </button>
                   <div className={styles.itemBody} aria-hidden={i !== active}>
                     <div className={styles.itemBodyInner}>
-                      <p className={styles.itemDesc}>{step.description}</p>
                       <button
                         type="button"
                         className={styles.itemCta}
@@ -103,14 +102,17 @@ export default function Overview() {
                     onClick={() => scrollToSection(step.sectionId)}
                   >
                     <span className={styles.cardTitle}>{step.title}</span>
-                    {step.preview.length > 0 && (
-                      <ul className={styles.cardPreview}>
-                        {step.preview.map((line, k) => (
-                          <li key={k}>{line}</li>
-                        ))}
-                      </ul>
-                    )}
-                    <span className={styles.cardCta}>바로가기 →</span>
+                    <p className={styles.cardDesc}>
+                      {step.description.map((seg, k) =>
+                        seg.emphasis ? (
+                          <strong key={k} className={styles.em}>
+                            {seg.text}
+                          </strong>
+                        ) : (
+                          <span key={k}>{seg.text}</span>
+                        ),
+                      )}
+                    </p>
                   </button>
                 );
               })}
