@@ -1,9 +1,19 @@
+import type { IconType } from 'react-icons';
+import { SiGithub, SiVelog } from 'react-icons/si';
 import Section from '../layout/Section';
 import Reveal from '../ui/Reveal';
 import { profile } from '../../data/profile';
 import styles from './About.module.css';
 
-const INFO = [
+type InfoItem = {
+  label: string;
+  value?: string;
+  href?: string;
+  Icon?: IconType;
+  color?: string;
+};
+
+const INFO: InfoItem[] = [
   { label: '이름', value: profile.name || '홍길동' },
   { label: '생년월일', value: profile.birthdate || '2000.05.14' },
   { label: '거주지', value: profile.location || '서울시 성동구' },
@@ -11,6 +21,8 @@ const INFO = [
     label: '학력',
     value: profile.education || 'OO대학교 컴퓨터공학과 · 2027.02 졸업예정',
   },
+  { label: '깃허브', href: profile.github, Icon: SiGithub, color:'#1F2228' },
+  { label: '벨로그', href: profile.velog, Icon: SiVelog, color:'#0DB885' },
 ];
 
 const BIO =
@@ -45,12 +57,36 @@ export default function About() {
 
           <div className={styles.windowBody}>
             <div className={styles.grid}>
-              {INFO.map((item) => (
-                <div key={item.label} className={styles.cell}>
-                  <span className={styles.label}>{item.label}</span>
-                  <span className={styles.value}>{item.value}</span>
-                </div>
-              ))}
+              {INFO.map((item) => {
+                const Icon = item.Icon;
+                return (
+                  <div key={item.label} className={styles.cell}>
+                    <span className={styles.label}>{item.label}</span>
+                    {Icon ? (
+                      item.href ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className={styles.linkValue}
+                          style={item.color ? { color: item.color } : undefined}
+                          aria-label={`${item.label} 바로가기`}
+                        >
+                          <Icon className={styles.linkIcon} />
+                        </a>
+                      ) : (
+                        <Icon
+                          className={styles.linkIconMuted}
+                          style={item.color ? { color: item.color } : undefined}
+                          aria-hidden="true"
+                        />
+                      )
+                    ) : (
+                      <span className={styles.value}>{item.value}</span>
+                    )}
+                  </div>
+                );
+              })}
             </div>
 
             <p className={styles.bio}>{BIO}</p>

@@ -11,6 +11,7 @@ export type Profile = {
   email: string;
   github: string;
   resumeUrl: string;
+  velog : string;
 };
 
 export const profile: Profile = {
@@ -26,4 +27,5 @@ export const profile: Profile = {
   email: '',
   github: '',
   resumeUrl: '',
+  velog: ''
 };

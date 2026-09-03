@@ -112,6 +112,24 @@
   color: rgba(28, 28, 30, 0.62);
 }
 
+/* 깃허브 / 벨로그 로고 링크 */
+.linkValue {
+  display: inline-flex;
+  color: #1c1c1e; /* 기본 색. item.color 지정 시 inline style 로 덮임 */
+  transition: opacity 0.2s ease;
+}
+.linkValue:hover {
+  opacity: 0.6;
+}
+.linkIcon,
+.linkIconMuted {
+  width: 22px;
+  height: 22px;
+}
+.linkIconMuted {
+  color: rgba(28, 28, 30, 0.25);
+}
+
 /* 마지막 긴 텍스트: 그리드 밖, 위쪽 구분선 + padding-top 20px */
 .bio {
   margin-top: 20px;
