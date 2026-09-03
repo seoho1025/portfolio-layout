@@ -90,32 +90,30 @@ export default function Overview() {
             className={styles.stage}
             style={{ y: panelY, opacity: panelOpacity, scale: panelScale }}
           >
-            <div className={styles.panel}>
-              {overviewSteps.map((step, i) => (
-                <button
-                  key={step.sectionId}
-                  type="button"
-                  className={styles.row}
-                  data-active={i === active}
-                  onClick={() => scrollToSection(step.sectionId)}
-                >
-                  <span className={styles.rowInner}>
-                    <span className={styles.rowHead}>
-                      <span className={styles.rowTitle}>{step.title}</span>
-                      <span className={styles.rowArrow} aria-hidden>
-                        →
-                      </span>
-                    </span>
+            <div className={styles.deck}>
+              {overviewSteps.map((step, i) => {
+                const depth = i - active;
+                return (
+                  <button
+                    key={step.sectionId}
+                    type="button"
+                    className={styles.card}
+                    data-depth={depth < 0 ? 'past' : String(depth)}
+                    data-active={i === active}
+                    onClick={() => scrollToSection(step.sectionId)}
+                  >
+                    <span className={styles.cardTitle}>{step.title}</span>
                     {step.preview.length > 0 && (
-                      <ul className={styles.rowPreview} data-visible={i === active}>
+                      <ul className={styles.cardPreview}>
                         {step.preview.map((line, k) => (
                           <li key={k}>{line}</li>
                         ))}
                       </ul>
                     )}
-                  </span>
-                </button>
-              ))}
+                    <span className={styles.cardCta}>바로가기 →</span>
+                  </button>
+                );
+              })}
             </div>
           </motion.div>
         </div>

@@ -108,105 +108,84 @@
   display: flex;
 }
 
-/* 흰 컨테이너 하나를 모든 행이 공유 — 테두리 없이 그림자만 */
-.panel {
+/* 오른쪽: 카드 4장이 같은 자리에 겹쳐 쌓임 */
+.deck {
+  position: relative;
   width: 100%;
-  border-radius: var(--radius-lg); /* 16px */
-  background: var(--color-bg);
-  box-shadow:
-    0 24px 64px -12px rgba(20, 24, 29, 0.16),
-    0 8px 20px -8px rgba(20, 24, 29, 0.08);
+  max-width: 360px;
+  height: 220px;
 }
 
-.row {
-  display: block;
-  width: 100%;
-  padding: 0;
-  border: 0;
-  border-top: 1px solid var(--color-gray08); /* 행 사이 옅은 구분선만 */
-  background: transparent;
-  cursor: pointer;
-  text-align: left;
-  opacity: 0.5; /* 비활성: 덜 강조 */
-  transition: opacity 0.3s ease;
-}
-.row:first-child {
-  border-top: 0;
-}
-.row[data-active='true'] {
-  opacity: 1;
-}
-/* 활성 행 위아래 구분선은 카드가 대신하므로 숨김 */
-.row[data-active='true'],
-.row[data-active='true'] + .row {
-  border-top-color: transparent;
-}
-
-.rowInner {
+.card {
+  position: absolute;
+  inset: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
-  padding: var(--space-5) var(--space-6);
-  border-radius: 0;
-  transition:
-    margin 0.3s ease,
-    box-shadow 0.3s ease;
-}
-
-/* 강조 항목: 컨테이너 안의 중첩 카드 (radius = 부모 − 6px), 그림자만 */
-.row[data-active='true'] .rowInner {
-  margin: 6px;
-  border-radius: calc(var(--radius-lg) - 6px); /* 10px */
+  padding: var(--space-5);
+  border: 0;
+  border-radius: var(--radius-lg);
   background: var(--color-bg);
-  box-shadow: 0 14px 32px -4px rgba(20, 24, 29, 0.2);
+  cursor: pointer;
+  text-align: left;
+  box-shadow:
+    0 24px 64px -12px rgba(20, 24, 29, 0.16),
+    0 8px 20px -8px rgba(20, 24, 29, 0.08);
+  transition:
+    transform 420ms cubic-bezier(0.32, 0.72, 0, 1),
+    opacity 320ms cubic-bezier(0.32, 0.72, 0, 1);
 }
 
-.rowHead {
-  display: flex;
-  align-items: center;
-  gap: var(--space-3);
+/* depth = 인덱스 − 활성 인덱스, z-index 는 depth 역순 */
+.card[data-depth='0'] {
+  z-index: 4;
+  transform: translateY(0) scale(1);
 }
-.rowTitle {
-  flex: 1;
-  font-size: var(--font-size-lg);
+.card[data-depth='1'] {
+  z-index: 3;
+  transform: translateY(14px) scale(0.96);
+}
+.card[data-depth='2'] {
+  z-index: 2;
+  transform: translateY(28px) scale(0.92);
+}
+.card[data-depth='3'] {
+  z-index: 1;
+  transform: translateY(42px) scale(0.88);
+  opacity: 0.6;
+}
+.card[data-depth='past'] {
+  z-index: 5;
+  transform: translateY(120px) scale(0.9);
+  opacity: 0;
+}
+
+.cardTitle {
+  font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text);
-  transition: color 0.25s ease;
-}
-.row[data-active='true'] .rowTitle {
   color: var(--color-text-strong);
 }
-.row:hover .rowTitle {
-  color: var(--color-main);
-}
 
-.rowArrow {
-  color: var(--color-text-muted);
-  opacity: 0;
-  transition: opacity 0.25s ease;
-}
-.row[data-active='true'] .rowArrow {
-  opacity: 1;
-}
-
-/* 활성 카드 안 요약 */
-.rowPreview {
-  display: none;
+.cardPreview {
+  display: flex;
   flex-direction: column;
   gap: 4px;
-  padding-top: var(--space-1);
 }
-.rowPreview[data-visible='true'] {
-  display: flex;
-}
-.rowPreview li {
+.cardPreview li {
   font-size: var(--font-size-sm);
   line-height: 1.5;
   color: var(--color-text-muted);
 }
-.rowPreview li:first-child {
+.cardPreview li:first-child {
   font-weight: var(--font-weight-bold);
   color: var(--color-text);
+}
+
+.cardCta {
+  margin-top: auto;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-main);
 }
 
 /* 진행 눈금 */
@@ -261,22 +240,25 @@
     opacity: 1;
     margin-top: var(--space-3);
   }
-  .row {
-    opacity: 1;
+  .deck {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
   }
-  .rowArrow {
-    opacity: 1;
-  }
-  .rowPreview {
-    display: flex; /* 모바일: 모든 요약 표시 */
+  .card {
+    position: static;
+    inset: auto;
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .itemTitle,
   .itemBody,
-  .row,
-  .rowInner,
+  .card,
   .progress span {
     transition: none;
   }
