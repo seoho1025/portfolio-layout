@@ -1,0 +1,18 @@
+.section {
+  /* 내용 높이만큼만. 섹션 간격은 상하 패딩으로만 통일 */
+  padding-block: var(--space-24);
+}
+
+.inner {
+  width: 100%;
+  max-width: var(--layout-max-width);
+  margin-inline: auto;
+  padding-inline: var(--layout-gutter);
+}
+
+.title {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-extrabold);
+  color: var(--color-text-strong);
+  margin-bottom: var(--space-8);
+}

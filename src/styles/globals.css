@@ -1,6 +1,6 @@
 /* 전역 스타일: 폰트 + 디자인 토큰 + 리셋 (전역 공용) */
-@import '../styles/fonts.css';
-@import '../styles/tokens.css';
+@import './fonts.css';
+@import './tokens.css';
 
 /* ---------------------------------------------------------------
  * Reset
@@ -15,6 +15,9 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 64px; /* 고정 GNB 높이만큼 앵커 offset */
+  /* scroll-behavior: smooth 는 useScroll 애니메이션과 충돌해서 사용하지 않음.
+     부드러운 이동은 JS(scrollIntoView behavior:'smooth')로 처리. */
 }
 
 body {

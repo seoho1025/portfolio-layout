@@ -1,0 +1,92 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px 28px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* 썸네일 */
+.thumb {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 11;
+  border: 0;
+  padding: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--color-bg-subtle);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.thumb:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(20, 24, 29, 0.14);
+}
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.thumb[data-tone='0'] {
+  background: linear-gradient(145deg, #ecf0ff, #f0edff 55%, #fff1eb);
+}
+.thumb[data-tone='1'] {
+  background: linear-gradient(145deg, #e9f1ff, #ecefff 55%, #f7efff);
+}
+.thumb[data-tone='2'] {
+  background: linear-gradient(145deg, #f1edff, #f7edfa 55%, #ffeef2);
+}
+.thumbLabel {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 16px;
+  text-align: center;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-extrabold);
+  color: rgba(28, 30, 50, 0.55);
+}
+
+/* PROJECT / PARTS — 세로로 쌓고, 각 줄은 [라벨] [값] 가로 */
+.meta {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.metaCol {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+.metaLabel {
+  flex-shrink: 0;
+  min-width: 52px;
+  font-size: 11px;
+  font-weight: var(--font-weight-extrabold);
+  letter-spacing: 0.06em;
+  color: var(--color-text-strong);
+}
+.metaValue {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--color-text-muted);
+}
+
+/* 반응형 */
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 560px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

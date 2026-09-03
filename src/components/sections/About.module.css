@@ -1,0 +1,164 @@
+.layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 340px) 1fr;
+  gap: var(--space-6);
+  align-items: stretch;
+}
+
+/* 프로필 사진 */
+.photo {
+  min-height: 360px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(20, 24, 29, 0.06);
+  background-color: var(--color-bg-subtle);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0 10px,
+    rgba(20, 24, 29, 0.03) 10px 20px
+  );
+  display: grid;
+  place-items: center;
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.photoPlaceholder {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-disabled);
+}
+
+/* ────────── macOS 스타일 유리 창 ────────── */
+.window {
+  background: rgba(252, 252, 254, 0.72);
+  -webkit-backdrop-filter: blur(30px) saturate(180%);
+  backdrop-filter: blur(30px) saturate(180%);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.1),
+    0 20px 48px rgba(20, 30, 60, 0.14),
+    0 3px 10px rgba(20, 30, 60, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+/* 타이틀바 */
+.titleBar {
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 14px;
+  background: rgba(255, 255, 255, 0.45);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.07);
+}
+
+.lights {
+  display: flex;
+  gap: 8px;
+}
+.light {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 0.5px rgba(0, 0, 0, 0.12);
+}
+.light:nth-child(1) {
+  background: #ff5f57;
+}
+.light:nth-child(2) {
+  background: #febc2e;
+}
+.light:nth-child(3) {
+  background: #28c840;
+}
+
+.windowTitle {
+  font-size: 13px;
+  color: rgba(0, 0, 0, 0.55);
+}
+
+/* Body */
+.windowBody {
+  padding: 28px;
+}
+
+/* 그리드: 셀은 배경도 구분선도 없이 창 안에 그대로 */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  row-gap: var(--space-5);
+  column-gap: var(--space-10);
+}
+.cell {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #1c1c1e;
+}
+.value {
+  font-size: 15px;
+  font-weight: 400;
+  color: rgba(28, 28, 30, 0.62);
+}
+
+/* 마지막 긴 텍스트: 그리드 밖, 위쪽 구분선 + padding-top 20px */
+.bio {
+  margin-top: 20px;
+  border-top: 0.5px solid rgba(0, 0, 0, 0.07);
+  padding-top: 20px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(28, 28, 30, 0.62);
+}
+
+/* ────────── 반응형 ────────── */
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  .photo {
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+    max-width: 320px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  /* 창 좌우 여백 16px (Section 좌우 패딩 상쇄 후 재지정) */
+  .layout {
+    margin-inline: calc(16px - var(--layout-gutter));
+  }
+}
+
+/* ────────── 폴백 ────────── */
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .window {
+    background: rgba(252, 252, 254, 0.96);
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .window {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(252, 252, 254, 0.97);
+  }
+}

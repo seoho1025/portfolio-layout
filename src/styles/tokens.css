@@ -110,5 +110,5 @@
    * Layout
    * ------------------------------------------------------------- */
   --layout-max-width: 1200px;
-  --layout-gutter: var(--space-4);
+  --layout-gutter: clamp(1.25rem, 5vw, 4rem); /* 20px ~ 64px, 화면 넓을수록 여백 ↑ */
 }

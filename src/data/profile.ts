@@ -18,7 +18,7 @@ export const profile: Profile = {
   tagline: '',
   summary: '',
   lastUpdate: '',
-  photo: '',
+  photo: '/profile.jpg',
   birthdate: '',
   location: '',
   education: '',

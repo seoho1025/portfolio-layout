@@ -1,0 +1,104 @@
+/* 하나의 그라데이션 카드 */
+.card {
+  border-radius: 20px;
+  padding: 24px;
+  background: linear-gradient(145deg, #eef1ff, #f2efff 50%, #ffeff4);
+  background: linear-gradient(in oklch 145deg, #eef1ff, #f2efff 50%, #ffeff4);
+}
+
+/* 흰 반투명 유리 판 (카드 안에 중첩) */
+.panel {
+  padding: 4px 24px 12px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 1px 3px rgba(40, 50, 90, 0.05);
+}
+
+/* 카테고리 그룹 */
+.group {
+  padding-block: 18px;
+}
+.group + .group {
+  border-top: 0.5px solid rgba(40, 50, 90, 0.1);
+}
+
+.category {
+  margin-bottom: 12px;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: #1c1c2e;
+}
+
+/* 스킬 2열 */
+.list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 28px;
+}
+
+/* 항목 (배경·그림자·radius 없음) */
+.item {
+  display: flex;
+  gap: 12px;
+  padding: 12px 0;
+}
+
+.icons {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.icon {
+  width: 18px;
+  height: 18px;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #1c1c2e;
+}
+.reason {
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(28, 30, 50, 0.58);
+}
+
+/* 반응형 */
+@media (max-width: 640px) {
+  .list {
+    grid-template-columns: 1fr;
+  }
+  .card {
+    margin-inline: calc(16px - var(--layout-gutter));
+  }
+}
+
+/* 폴백 */
+@supports not (
+  (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))
+) {
+  .panel {
+    background: rgba(255, 255, 255, 0.82);
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .panel {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: rgba(255, 255, 255, 0.86);
+  }
+}
