@@ -32,7 +32,7 @@
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-extrabold);
   letter-spacing: 0.06em;
-  color: var(--color-text-disabled);
+  color: var(--color-text-subtle);
 }
 
 /* 오른쪽 콘텐츠 — 왼쪽 세로 구분선 */
@@ -43,7 +43,7 @@
 
 .company {
   font-size: var(--font-size-2xl);
-  font-weight: 800;
+  font-weight: var(--font-weight-extrabold);
   color: var(--color-text-strong);
 }
 .companyPeriod {
@@ -65,11 +65,11 @@
 }
 .role {
   padding: 7px 14px;
-  border-radius: 8px;
-  background: #1c1c2e;
-  color: #fff;
+  border-radius: var(--radius-md);
+  background: var(--color-surface-inverse);
+  color: var(--color-text-on-inverse);
   font-size: 13px;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
 }
 
 /* 업무 항목 리스트 */
@@ -87,9 +87,9 @@
 
 .itemTitle {
   padding-left: 14px;
-  border-left: 3px solid #2D6AF7;
+  border-left: 3px solid var(--color-primary);
   font-size: var(--font-size-lg);
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
   line-height: 1.35;
   color: var(--color-text-strong);
 }

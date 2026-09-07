@@ -6,7 +6,7 @@
   background-color: var(--color-bg);
   border-bottom: 1px solid transparent;
   /* 메인 화면: 그림자 */
-  box-shadow: 0 2px 16px rgba(20, 24, 29, 0.08);
+  box-shadow: var(--shadow-sm);
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
@@ -27,7 +27,7 @@
 
 .logo {
   font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-extrabold);
+  font-weight: var(--font-weight-heavy);
   color: var(--color-text-strong);
 }
 
@@ -47,12 +47,12 @@
 
 /* 호버 시 메인 색 */
 .link:hover {
-  color: var(--color-main);
+  color: var(--color-primary);
 }
 
 /* 현재 보고 있는 섹션: 메인 색 고정 */
 .link[data-active='true'] {
-  color: var(--color-main);
+  color: var(--color-primary);
 }
 
 .actions {

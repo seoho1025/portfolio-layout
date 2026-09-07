@@ -61,14 +61,14 @@
   text-align: left;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
-  color: var(--color-text-disabled); /* 비활성: 흐림 */
+  color: var(--color-text-subtle); /* 비활성: 흐림 */
   transition: color 0.3s ease;
 }
 .item[data-active='true'] .itemTitle {
   color: var(--color-text-strong); /* 활성 */
 }
 .itemTitle:hover {
-  color: var(--color-main);
+  color: var(--color-primary);
 }
 
 /* max-height 대신 grid-template-rows(0fr→1fr) 로 부드럽게 펼침 */
@@ -94,7 +94,7 @@
   cursor: pointer;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-bold);
-  color: var(--color-main);
+  color: var(--color-primary);
 }
 
 /* 오른쪽: 섹션 목록 패널 (하나의 컨테이너) */
@@ -164,12 +164,12 @@
   margin-block: auto; /* 카드 안 세로 가운데 */
   transform: translateY(-16px);
   font-size: var(--font-size-base);
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
   text-align: center;
   color: var(--color-text-muted);
 }
 .em {
-  color: var(--color-main);
+  color: var(--color-primary);
   font-weight: var(--font-weight-bold);
 }
 

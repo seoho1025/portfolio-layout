@@ -25,7 +25,7 @@
 }
 .thumb:hover {
   transform: translateY(-4px);
-  box-shadow: 0 18px 40px rgba(20, 24, 29, 0.14);
+  box-shadow: var(--shadow-lg);
 }
 .thumb img {
   width: 100%;
@@ -33,13 +33,13 @@
   object-fit: cover;
 }
 .thumb[data-tone='0'] {
-  background: linear-gradient(145deg, #ecf0ff, #f0edff 55%, #fff1eb);
+  background: var(--gradient-card-b);
 }
 .thumb[data-tone='1'] {
   background: linear-gradient(145deg, #e9f1ff, #ecefff 55%, #f7efff);
 }
 .thumb[data-tone='2'] {
-  background: linear-gradient(145deg, #f1edff, #f7edfa 55%, #ffeef2);
+  background: var(--gradient-card-c);
 }
 .thumbLabel {
   display: grid;
@@ -50,7 +50,7 @@
   text-align: center;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-extrabold);
-  color: rgba(28, 30, 50, 0.55);
+  color: var(--color-text-muted);
 }
 
 /* PROJECT / PARTS — 세로로 쌓고, 각 줄은 [라벨] [값] 가로 */

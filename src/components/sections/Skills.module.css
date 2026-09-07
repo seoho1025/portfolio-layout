@@ -2,7 +2,7 @@
 .card {
   border-radius: 20px;
   padding: 24px;
-  background: linear-gradient(145deg, #eef1ff, #f2efff 50%, #ffeff4);
+  background: var(--gradient-card-a);
   background: linear-gradient(in oklch 145deg, #eef1ff, #f2efff 50%, #ffeff4);
 }
 
@@ -10,7 +10,7 @@
 .panel {
   padding: 4px 24px 12px;
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.55);
+  background: var(--color-glass);
   -webkit-backdrop-filter: blur(20px) saturate(160%);
   backdrop-filter: blur(20px) saturate(160%);
   box-shadow:
@@ -31,7 +31,7 @@
   font-size: 18px;
   font-weight: 800;
   letter-spacing: -0.01em;
-  color: #1c1c2e;
+  color: var(--color-text-strong);
 }
 
 /* 스킬 2열 */
@@ -67,14 +67,14 @@
 }
 .name {
   font-size: 15px;
-  font-weight: 700;
-  color: #1c1c2e;
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-strong);
 }
 .reason {
   font-size: 13px;
-  font-weight: 400;
-  line-height: 1.5;
-  color: rgba(28, 30, 50, 0.58);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-muted);
 }
 
 /* 반응형 */
