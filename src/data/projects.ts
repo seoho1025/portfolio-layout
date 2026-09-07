@@ -1,3 +1,4 @@
+//프로젝트 디테일한 부분 잡기
 export type ProjectLink = {
   label: string;
   url: string;
@@ -12,7 +13,7 @@ export type TroubleShooting = {
 };
 
 export type Project = {
-  slug: string;
+  slug: string; /*URL이나 식별자로 쓰기 좋게 다듬은 짧은 문자열*/
   title: string;
   parts: string;
   thumbnail: string;
@@ -25,161 +26,197 @@ export type Project = {
   retro: string;
   troubles: TroubleShooting[];
   links: ProjectLink[];
+  host?: string;
+  award?: string;
 };
 
 // placeholder — 실제 프로젝트로 교체하세요.
 export const projects: Project[] = [
   {
-    slug: 'brand-website',
-    title: 'Brand Website dev.',
-    parts: 'Design · Publish · F/B-end',
-    thumbnail: '',
+    slug: "ward",
+    title: "Ward",
+    parts: "기획 · 프론트엔드 · 백엔드 · 배포",
+    thumbnail: "/images/projects/ward/thumbnail.png",
     featured: true,
-    stack: ['React', 'TypeScript', 'Tailwind', 'Vite'],
-    period: '2025.03 – 2025.05',
-    team: '개인',
-    role: '기획 · 디자인 · 프론트엔드',
+    stack: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "Riot Games API",
+      "YouTube Data API",
+      "AI API",
+      "Vercel",
+    ],
+    period: "2026.02 ~ 진행중",
+    team: "1인 개인 프로젝트",
+    role: "기획, 디자인, 개발, 배포 전 과정 담당",
     overview:
-      '브랜드 소개용 원페이지 웹사이트. 디자인 토큰을 먼저 정의하고 컴포넌트를 조립하는 방식으로 진행해, 후반 시안 변경에도 빠르게 대응할 수 있었습니다.',
+      "LCK 선수들의 생년월일을 기반으로 사주를 분석해 당일 운세와 경기 승패를 예측하고, AI가 선수별 한줄 총평을 제공하는 웹 서비스입니다. 경기·선수 관련 질문에 답변하는 AI 챗봇과 팀별 유튜브 영상을 한곳에서 모아보는 기능을 함께 제공해, 사주와 e스포츠를 결합한 팬 콘텐츠 플랫폼을 지향합니다.",
     retro:
-      '토큰을 먼저 잡으니 디자인 변경 대응이 빨랐습니다. 다만 초기 토큰 설계에 예상보다 시간이 더 필요했고, 문서로 남겨 다음 프로젝트에 재사용했습니다.',
+      "기획부터 배포까지 개발의 전반적인 과정을 혼자 경험했습니다. AI API 연동, 외부 데이터 가공, 프론트엔드와 백엔드의 연결 방식 등 서비스 하나가 완성되기까지 필요한 다양한 과정을 몸으로 익힐 수 있었습니다.",
     troubles: [
       {
-        problem: '스크롤에 연동된 애니메이션이 프레임 드랍',
-        cause: 'html의 scroll-behavior: smooth 가 스크롤 연동 계산과 충돌',
-        failedAttempt: 'transition 시간을 줄여봤지만 근본 원인이 아니었음',
-        solution: 'CSS smooth 제거, 앵커 이동만 JS scrollIntoView({ behavior: "smooth" }) 로 처리',
-        result: '스크롤 체감이 부드러워지고 스크롤 중 CPU 사용률 감소',
+        problem: "AI API 연동 중 401 인증 오류가 발생해 응답을 받지 못함",
+        cause: "결제 수단 미등록으로 API 크레딧이 부족한 상태였음",
+        failedAttempt: "TODO: 실제로 먼저 시도했던 방법을 작성",
+        solution: "결제 정보를 등록하고 크레딧을 충전해 정상 호출 처리",
+        result: "AI 총평 생성 기능이 정상 동작하도록 복구",
+      },
+      {
+        problem:
+          "Riot Games API 연동 중 CORS 오류 및 Rate Limit 초과 문제가 반복 발생",
+        cause:
+          "브라우저에서 외부 API를 직접 호출했고, 요청 횟수를 제어하는 로직이 없었음",
+        failedAttempt: "TODO: 실제로 먼저 시도했던 방법을 작성",
+        solution:
+          "서버 사이드에서 API 요청을 처리하는 방식으로 구조를 변경해 CORS를 해결하고, 요청 횟수 제한 로직을 추가",
+        result:
+          "안정적인 데이터 호출이 가능해졌고 Rate Limit 초과 문제가 해소됨",
       },
     ],
     links: [
-      { label: 'GitHub', url: 'https://github.com' },
-      { label: 'Live', url: 'https://example.com' },
+      { label: "GitHub", url: "https://github.com/seoho1025/Ward" },
+      { label: "배포", url: "https://lck-fortune.vercel.app" },
     ],
   },
   {
-    slug: 'lifecaption',
-    title: 'Platform dev.',
-    parts: 'UI/UX · Publish · F/B-end',
-    thumbnail: '',
+    slug: "ai-travel-diary",
+    title: "AI 기반 여행일기",
+    parts: "기획 · UI/UX · 프론트엔드",
+    thumbnail: "/images/projects/ai-travel-diary/thumbnail.png",
     featured: true,
-    stack: ['Next.js', 'TypeScript', 'Zustand', 'FastAPI'],
-    period: '2024.09 – 2025.01',
-    team: '4인 (FE 2 · BE 1 · 디자인 1)',
-    role: '프론트엔드 리드 · 실시간 자막 뷰 구현',
+    stack: ["React Native", "TypeScript", "Expo", "Figma"],
+    period: "2025.02.22 ~ 2025.08.30",
+    team: "5인 팀 프로젝트",
+    role: "서비스 기획 및 요구사항 정의, Figma를 활용한 UI/UX 디자인, React Native / TypeScript 프론트엔드 개발, API 명세서 작성 및 백엔드 협업",
     overview:
-      '청각장애인의 학습권과 의사소통을 돕는 실시간 자막 플랫폼. 웹소켓으로 들어오는 자막을 지연 없이 렌더링하는 뷰를 담당했습니다.',
+      "사진과 표정(감정)만으로 여행 일기와 동선을 자동 생성하고, 실시간 장소 추천 및 동행자와의 공동 기록을 지원하는 AI 기반 맞춤형 여행 파트너 애플리케이션입니다.",
     retro:
-      '초기엔 상태를 전역으로 관리하다 리렌더가 많았고, 자막 뷰를 별도 스토어로 분리해 개선했습니다. 실시간 UI의 성능 병목을 측정하는 습관이 생겼습니다.',
+      "팀원 간 협력과 의사소통의 중요성을 몸소 배우며 공모전 제출까지 완수할 수 있었습니다. AI 기반 여행 일기 생성 기능을 구현하고 일기 품질을 개선하는 과정에서 성취감을 느꼈습니다.",
     troubles: [
       {
-        problem: '자막이 초당 수십 건 들어올 때 입력 지연 발생',
-        cause: '자막 배열 전체를 상태로 두어 매 수신마다 전체 리렌더',
-        failedAttempt: 'React.memo 를 넓게 적용했지만 부모 리렌더는 그대로였음',
-        solution: '자막 뷰를 독립 스토어로 분리하고 화면에 보이는 구간만 렌더',
-        result: '입력 지연이 사라지고 프레임이 안정적으로 유지됨',
+        problem: "iOS 환경에서 지도 기능이 아예 동작하지 않는 오류 발생",
+        cause: "네이티브 빌드에 지도 관련 모듈이 포함되지 않은 상태에서 실행",
+        failedAttempt: "TODO: 실제로 먼저 시도했던 방법을 작성",
+        solution:
+          "Cursor로 오류 로그를 분석해 원인을 파악하고, 빌드 구조를 직접 변경해 해결",
+        result:
+          "단순 코드 수정이 아닌 빌드 환경 자체를 이해하는 것이 중요하다는 것을 깨달음",
       },
     ],
-    links: [{ label: 'GitHub', url: 'https://github.com' }],
+    links: [
+      { label: "GitHub", url: "https://github.com/seoho1025/TravelDiary.git" },
+    ],
   },
   {
-    slug: 'value-bite',
-    title: 'Solution introduction.',
-    parts: 'Design · Publish · F/B-end',
-    thumbnail: '',
-    featured: false,
-    stack: ['React', 'TypeScript', 'Spring Boot', 'MySQL'],
-    period: '2024.03 – 2024.06',
-    team: '3인',
-    role: '프론트엔드 · 소개 페이지 및 관리자 화면',
+    slug: "kice-quote",
+    title: "KICE Quote — 국제복합운송 AI 견적 시스템",
+    parts: "프론트엔드",
+    thumbnail: "/images/projects/kice-quote/thumbnail.png",
+    featured: true,
+    stack: ["React", "TypeScript", "Claude API"],
+    period: "2026.07.22 ~ 2026.08.16",
+    team: "4인 팀 프로젝트 (기획·PM / 백엔드·데이터 / 프론트엔드 / AI·프롬프트 설계)",
+    role: "프론트엔드 개발",
     overview:
-      '소상공인용 솔루션 소개 및 신청 사이트. 소개 페이지와 신청 폼, 간단한 관리자 화면을 구현했습니다.',
+      "MOVE AI CHALLENGE 2026 본선 출품작으로, 화주가 출발·도착지, 규격·수량, 날짜, 품목 4가지만 입력하면 국제복합운송 견적서를 즉시 산출하는 시스템입니다. 공개 요율로 계산 가능한 구간은 확정 금액으로, 산출식이 비공개인 구간은 근거 있는 범위로 이원화해 표기하고, 모든 금액에 산식·출처·갱신시각과 '왜 확정할 수 없는가'를 연결한 근거 패널을 제공합니다.",
     retro:
-      '폼 검증 로직이 컴포넌트에 흩어져 유지보수가 어려웠고, 스키마 기반 검증으로 정리했습니다.',
+      "불확실한 정보를 숨기지 않고 화면에서 어떻게 정직하게 드러낼지를 고민한 프로젝트였습니다. 확정과 잠정을 배지로 강제 구분하고 모든 금액을 한 번의 클릭으로 근거까지 도달하게 만드는 과정에서, UI가 곧 서비스의 신뢰도를 결정한다는 것을 체감했습니다.",
     troubles: [
       {
-        problem: '신청 폼 제출 후 중복 요청이 종종 발생',
-        cause: '제출 버튼에 로딩/비활성 처리가 없어 더블 클릭 허용',
-        failedAttempt: 'debounce 를 걸었지만 느린 네트워크에선 여전히 중복',
-        solution: '요청 시작 시 버튼 비활성 + 서버측 멱등키 도입',
-        result: '중복 신청 건이 사라짐',
+        problem:
+          "구간 단위가 아닌 항목 단위로 확정과 잠정이 섞여 있어, 사용자가 견적의 신뢰도를 판단하기 어려움",
+        cause:
+          "금액 표기 방식이 화면마다 통일되어 있지 않아 어떤 금액이 확정인지 구분되지 않았음",
+        failedAttempt: "TODO: 실제로 먼저 시도했던 방법을 작성",
+        solution:
+          "금액이 노출되는 모든 위치에 배지를 강제하고, 구간 헤더에 확정 비율(%)을 표기하도록 설계",
+        result:
+          "접힌 상태에서도 구간별 신뢰도를 판단할 수 있게 되었고, 잠정 항목은 범위로만 표기하는 규칙을 화면 전반에 통일",
       },
     ],
-    links: [{ label: 'Live', url: 'https://example.com' }],
+    links: [
+      {
+        label: "GitHub",
+        url: "https://github.com/febbyy0000/MOVE-AI_Q-RAIL.git",
+      },
+      {
+        label: "배포",
+        url: "https://move-ai-q-rail-git-front-51541759667.asia-northeast3.run.app/",
+      },
+    ],
   },
   {
-    slug: 'public-project',
-    title: 'Public Project.',
-    parts: 'Publish',
-    thumbnail: '',
+    slug: "ringle-personai",
+    title: "링글 AI 서비스 기획 (RINGLE PERSONAI)",
+    parts: "기획 · 자료조사 · UI/UX · PPT",
+    thumbnail: "/images/projects/ringle-personai/thumbnail.png",
     featured: false,
-    stack: ['HTML', 'SCSS', 'JavaScript'],
-    period: '2023.11 – 2023.12',
-    team: '2인',
-    role: '퍼블리싱 전담',
+    stack: ["Figma", "PowerPoint"],
+    period: "2025.01.02 ~ 2026.01.16",
+    team: "3인 팀 프로젝트",
+    role: "서비스 기획 및 요구사항 정의, Figma를 활용한 UI/UX 디자인 및 PPT 제작",
     overview:
-      '공공기관 안내 페이지 다국어 퍼블리싱. 시맨틱 마크업과 접근성 기준(WCAG AA)에 맞춰 작업했습니다.',
+      "제5회 링글 서비스 기획 & 마케팅 공모전 출품작입니다. 사용자 문서 데이터를 분석해 개인 맞춤형 영어 회화 주제를 자동 생성하고, 실시간 문장 정확도 측정과 원어민 표현 학습을 결합한 AI 영어 회화 서비스를 기획했습니다. PDF·PPTX·JPG 파일 업로드 기반의 맞춤 대화, 실시간 문장 완성도 표시, 맥락 속 표현 학습 기능을 핵심으로 설계했습니다.",
     retro:
-      '접근성 체크리스트를 처음부터 두고 작업하니 후반 수정이 거의 없었습니다.',
-    troubles: [
-      {
-        problem: '스크린리더에서 탭 메뉴 순서가 뒤섞임',
-        cause: 'DOM 순서와 시각적 순서가 CSS로 인해 불일치',
-        failedAttempt: 'tabindex 를 수동 지정했으나 유지보수가 어려움',
-        solution: 'DOM 순서를 시각적 순서와 일치시키고 레이아웃만 CSS로 조정',
-        result: '키보드/스크린리더 탐색 순서가 자연스러워짐',
-      },
-    ],
-    links: [{ label: 'Live', url: 'https://example.com' }],
+      "AI TTS 기술을 서비스에 어떻게 적용할 수 있는지 구체적으로 이해하게 되었고, AI 기반 기능 기획 과정에서 자연어 처리, 음성 합성 등 다양한 AI 기술 요소들이 실제 서비스와 어떻게 연결되는지 시야를 넓힐 수 있었습니다.",
+    troubles: [],
+    links: [],
   },
   {
-    slug: 'nft-tcg',
-    title: 'NFT Trading Card Game dev.',
-    parts: 'Publish · Front-end',
-    thumbnail: '',
+    slug: "nh-nahi",
+    title: "NH 농협은행 AI 아이디어 챌린지 (NAHI!)",
+    parts: "기획 · 자료조사 · UI/UX · PPT",
+    thumbnail: "/images/projects/nh-nahi/thumbnail.png",
     featured: false,
-    stack: ['React', 'TypeScript', 'ethers.js', 'Vite'],
-    period: '2024.07 – 2024.08',
-    team: '해커톤 4인',
-    role: '프론트엔드 · 카드 인벤토리 및 거래 UI',
+    stack: ["Figma", "PowerPoint"],
+    period: "2025.09.01 ~ 2025.10.25",
+    team: "2인 팀 프로젝트",
+    role: "서비스 기획 및 요구사항 정의, 자료조사, Figma를 활용한 UI/UX 디자인",
     overview:
-      '지갑을 연결해 카드 NFT를 확인하고 거래하는 웹 클라이언트. 해커톤에서 48시간 동안 제작했습니다.',
+      "AI 기반 소비 패턴 분석과 게임화 요소를 결합한 2030 맞춤형 자산관리 서비스 기획 공모전 프로젝트입니다. AI가 카드·계좌 소비내역을 분석해 개인의 취향까지 태깅하고, 목표 달성에 필요한 적금·카드를 맞춤 추천하며, 예상 경비를 퀘스트로 설정해 저축을 게임화하는 라이프 챌린지 기능을 제안했습니다.",
     retro:
-      '체인 응답 대기 시간을 UI에서 어떻게 다루느냐가 체감 품질을 좌우한다는 걸 배웠습니다.',
-    troubles: [
-      {
-        problem: '트랜잭션 전송 후 화면이 멈춘 것처럼 보임',
-        cause: '컨펌 대기 동안 아무 피드백이 없었음',
-        failedAttempt: '스피너만 추가했지만 진행 상황을 알 수 없어 답답함은 그대로',
-        solution: '전송 → 대기 → 컨펌 단계를 표시하고 예상 시간을 안내',
-        result: '사용자가 이탈 없이 컨펌을 기다리게 됨',
-      },
-    ],
-    links: [{ label: 'GitHub', url: 'https://github.com' }],
+      "AI를 서비스에 어떻게 적용할 수 있는지 구체적으로 이해할 수 있었고, 금융 상품에 대한 시야도 넓힐 수 있었습니다.",
+    troubles: [],
+    links: [],
   },
   {
-    slug: 'daily-app',
-    title: 'Mobile App dev.',
-    parts: 'Publish · Front-end',
-    thumbnail: '',
-    featured: false,
-    stack: ['React Native', 'TypeScript', 'Zustand'],
-    period: '2024.02 – 2024.04',
-    team: '3인',
-    role: '프론트엔드 · 홈/기록 화면',
-    overview:
-      '하루 지출을 빠르게 기록하는 모바일 앱. iOS/Android 공통 컴포넌트로 화면을 구성했습니다.',
-    retro:
-      '플랫폼별 예외 처리를 뒤늦게 몰아서 하다 일정이 밀렸고, 다음엔 초기에 두 플랫폼을 함께 확인하기로 했습니다.',
-    troubles: [
-      {
-        problem: '리스트 스크롤 시 iOS에서만 프레임 저하',
-        cause: '항목마다 그림자를 렌더링해 오프스크린 합성 비용 증가',
-        failedAttempt: '항목 수를 줄여봤지만 근본 원인은 그림자였음',
-        solution: '그림자를 단색 배경 + 얇은 경계선으로 대체',
-        result: 'iOS에서도 스크롤이 매끄러워짐',
-      },
+    slug: "knock",
+    title: "피우다 프로젝트",
+    parts: "프론트엔드 및 기획, 디자인",
+    thumbnail: "/images/projects/knock/thumbnail.png",
+    featured: true,
+    stack: [
+      "React Native",
+      "TypeScript",
+      "WebRTC",
+      "STT",
+      "LLM",
+      "TTS",
     ],
-    links: [{ label: 'GitHub', url: 'https://github.com' }],
+    period: "2026년 5월 ~ 6월",
+    team: "3인 팀 프로젝트",
+    role: "프론트엔드 개발",
+    overview:
+      "AI가 매일 아침 독거노인에게 안부 전화를 걸어 감정 상태를 모니터링하고, 이상 징후가 발생하면 보호자에게 자동으로 알리는 고독사 예방 케어 서비스입니다. 노인은 걸려오는 전화를 받기만 하면 되는 수동적 UX로 설계했고, 통화 내용과 음성 톤·속도·발화 간격을 함께 분석해 감정 점수를 날씨 아이콘으로 시각화합니다. 개인별 baseline 대비 편차로 임계치를 판정하기 때문에 일시적 컨디션 변화와 누적된 패턴 변화를 구분할 수 있습니다.",
+    retro: "TODO: 프로젝트를 진행하며 배운 점을 작성",
+    troubles: [],
+    links: [],
+  },
+  {
+    slug: "cj-freshway",
+    title: "CJ 프레시웨이 공모전 (최우수상)",
+    parts: "기획 · 자료조사 · PPT · 발표",
+    thumbnail: "/images/projects/cj-freshway/thumbnail.png",
+    featured: false,
+    stack: ["PowerPoint"],
+    period: "TODO: 진행 기간을 작성",
+    team: "TODO: 팀 구성을 작성",
+    role: "TODO: 담당 업무를 작성",
+    overview:
+      "CJ 프레시웨이 주최 공모전 출품작으로, 자사 신제품을 활용한 아동 대상 프로그램 기획과 상품 기획을 제안한 프로젝트입니다. 최우수상을 수상했습니다.",
+    retro: "TODO: 프로젝트를 진행하며 배운 점을 작성",
+    troubles: [],
+    links: [],
   },
 ];
