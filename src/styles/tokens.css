@@ -170,4 +170,18 @@
   --shadow-md: 0 4px 16px rgba(20, 24, 29, 0.06);
   --shadow-lg: 0 20px 48px rgba(20, 30, 60, 0.14);
   --shadow-xl: 0 40px 100px rgba(20, 30, 60, 0.28);
+
+  /*============================================================
+  * 8) Avater
+  */
+  /* 아바타 기본 */
+  --avatar-body: #5b7cfa;
+  --avatar-body-thinkind: var(--gray-400);
+  --avatar-eyes-color: #0F1215;
+
+  /* 아바타 놀람 표시 */
+  --avatar-vody-surprised:#ff8a5b;
+  --avatar-eye: #0F1215;
+
+
 }
