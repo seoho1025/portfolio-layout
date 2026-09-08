@@ -76,6 +76,8 @@
   border-radius: var(--radius-lg);
   overflow: hidden;
   margin-bottom: 16px;
+  /* 사진 가장자리가 흰색이어도 둥근 테두리가 보이게 */
+  box-shadow: inset 0 0 0 1px var(--color-border-hairline);
 }
 .thumb img {
   display: block;
