@@ -6,13 +6,14 @@ import {
   useScroll,
   useTransform,
 } from 'motion/react';
-import { overviewSteps } from '../../data/overview';
+import { usePortfolio } from '../../context/PortfolioProvider';
 import { scrollToSection } from '../../lib/scroll';
 import styles from './Overview.module.css';
 
-const N = overviewSteps.length;
-
 export default function Overview() {
+  const { overview: overviewSteps } = usePortfolio();
+  const N = overviewSteps.length;
+
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const [active, setActive] = useState(0);

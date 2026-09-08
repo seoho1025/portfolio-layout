@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import type { Project } from '../../data/projects';
@@ -12,6 +12,15 @@ type ProjectModalProps = {
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  // 지금 보여줄 사진 번호 (0부터 시작)
+  const [num, setNum] = useState(0);
+
+  // 다른 프로젝트를 열면 다시 0번 사진으로
+  useEffect(() => {
+    setNum(0);
+  }, [project]);
+
+  // 모달 열려있는 동안: ESC 로 닫기 + 뒤 페이지 스크롤 막기
   useEffect(() => {
     if (!project) return;
     const onKey = (e: KeyboardEvent) => {
@@ -20,15 +29,18 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
     document.addEventListener('keydown', onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    // 닫힐 때 원래대로 되돌림
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = prev;
     };
   }, [project, onClose]);
 
+  // createPortal = 모달을 컴포넌트 트리 말고 body 밑에 직접 그림 (다른 요소에 안 가려지게)
   return createPortal(
     <AnimatePresence>
       {project && (
+        // 어두운 배경 — 클릭하면 닫힘
         <motion.div
           className={styles.backdrop}
           onClick={onClose}
@@ -37,6 +49,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.22 }}
         >
+          {/* 실제 창 — 안쪽 클릭은 닫히지 않게 stopPropagation */}
           <motion.div
             className={styles.modal}
             role="dialog"
@@ -63,13 +76,45 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             <div className={styles.body}>
-              <div className={styles.thumb} data-empty={!project.thumbnail}>
-                {project.thumbnail ? (
-                  <img src={project.thumbnail} alt={project.title} />
-                ) : (
-                  <span>{project.title}</span>
-                )}
-              </div>
+              {/* 사진 (num 번째) */}
+              {project.images.length > 0 && (
+                <div className={styles.thumb}>
+                  <img src={project.images[num]} alt={project.title} />
+                </div>
+              )}
+
+              {/* 사진 2장 이상일 때만 넘기기 버튼 */}
+              {project.images.length > 1 && (
+                <div className={styles.gallery}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // 0보다 클 때만 뒤로
+                      if (num > 0) {
+                        setNum(num - 1);
+                      }
+                    }}
+                  >
+                    이전
+                  </button>
+
+                  <span>
+                    {num + 1} / {project.images.length}
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // 마지막 장이 아닐 때만 앞으로
+                      if (num < project.images.length - 1) {
+                        setNum(num + 1);
+                      }
+                    }}
+                  >
+                    다음
+                  </button>
+                </div>
+              )}
 
               <dl className={styles.metaGrid}>
                 <div>
