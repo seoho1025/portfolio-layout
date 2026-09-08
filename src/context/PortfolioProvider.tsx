@@ -13,12 +13,14 @@ export function PortfolioProvider({ children } : {children : ReactNode}){
     const [ failed, setFailed ] = useState(false); // fetch 실패 여부
     // 앱 시작 시 한 번만 실행 
     useEffect(() => {
+        let ignore = false;
         getPortfolio()
-        .then(setData) // 성공 시 data에 저장 -> 재렌더
-        .catch((err) => { // 실패 시 console에 원인을 표시하고 실패 메시지 전송 
-            console.error(err);
-            setFailed(true);
-        });
+            .then((d) => { if (!ignore) setData(d); }) // 성공 시 data에 저장 -> 재렌더
+            .catch((err) => { // 실패 시 console에 원인을 표시하고 실패 메시지 전송
+                console.error(err);
+                if (!ignore) setFailed(true);
+            });
+        return () => { ignore = true; };
     }, []);
 
     if(failed) return <div>불러오지 못했어요</div>;
