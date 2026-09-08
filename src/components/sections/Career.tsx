@@ -1,12 +1,13 @@
 import { MotionConfig, motion } from 'motion/react';
 import Section from '../layout/Section';
 import Reveal from '../ui/Reveal';
-import { careers } from '../../data/careers';
+import { usePortfolio } from '../../context/PortfolioProvider';
 import styles from './Career.module.css';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function Career() {
+  const { careers } = usePortfolio();
   return (
     <Section id="career" title="Career">
       <MotionConfig reducedMotion="user">

@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react';
 import { NAV_SECTIONS, SECTION_IDS } from '../../config/section';
-import { profile } from '../../data/profile';
+import { usePortfolio } from '../../context/PortfolioProvider';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import { scrollToSection } from '../../lib/scroll';
 import ThemeSwitcher from './ThemeSwitcher';
 import styles from './Gnb.module.css';
 
 export default function Gnb() {
+  const { profile } = usePortfolio();
+
   // flat: 첫 화면(히어로)을 벗어났는지 여부
   //  - 벗어나면 헤더의 그림자·구분선 제거 (data-flat으로 스타일 전환)
   //  - 값이 바뀌면 헤더를 다시 그림

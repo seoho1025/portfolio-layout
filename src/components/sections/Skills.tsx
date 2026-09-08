@@ -17,7 +17,7 @@ import {
   SiTypescript,
 } from 'react-icons/si';
 import Section from '../layout/Section';
-import { skills } from '../../data/skills';
+import { usePortfolio } from '../../context/PortfolioProvider';
 import styles from './Skills.module.css';
 
 type IconSpec = { Icon: IconType; color: string };
@@ -53,16 +53,6 @@ function resolveIcons(name: string): IconSpec[] {
 const EASE = [0.22, 1, 0.36, 1] as const;
 const STEP = 0.05;
 
-// 카테고리 라벨 + 스킬 행마다 순차 delay
-const delayOf: Record<string, number> = {};
-{
-  let n = 0;
-  for (const card of skills) {
-    delayOf[`cat-${card.id}`] = n++ * STEP;
-    for (const item of card.items) delayOf[`${card.id}-${item.name}`] = n++ * STEP;
-  }
-}
-
 const boxVariants = {
   hidden: { opacity: 0, y: 48, scale: 0.96 },
   show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65, ease: EASE } },
@@ -76,6 +66,19 @@ function rowVariants(delay: number) {
 }
 
 export default function Skills() {
+  const { skills } = usePortfolio();
+
+  // 카테고리 라벨 + 스킬 행마다 순차 delay
+  const delayOf: Record<string, number> = {};
+  {
+    let n = 0;
+    for (const card of skills) {
+      delayOf[`cat-${card.id}`] = n++ * STEP;
+      for (const item of card.items)
+        delayOf[`${card.id}-${item.name}`] = n++ * STEP;
+    }
+  }
+
   return (
     <Section id="skills" title="Skills">
       <MotionConfig reducedMotion="user">

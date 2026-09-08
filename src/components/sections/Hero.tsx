@@ -1,7 +1,8 @@
-import { profile } from '../../data/profile';
+import { usePortfolio } from '../../context/PortfolioProvider';
 import styles from './Hero.module.css';
 
 export default function Hero() {
+  const { profile } = usePortfolio();
   return (
     <section id="hero" className={styles.hero}>
       <h1 className={styles.title}>{profile.name || 'PORTFOLIO'}</h1>

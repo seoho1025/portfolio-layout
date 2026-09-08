@@ -2,12 +2,13 @@ import { useState } from 'react';
 import { MotionConfig, motion } from 'motion/react';
 import Section from '../layout/Section';
 import ProjectModal from '../project-modal/ProjectModal';
-import { projects } from '../../data/projects';
+import { usePortfolio } from '../../context/PortfolioProvider';
 import styles from './Projects.module.css';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function Projects() {
+  const { projects } = usePortfolio();
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const openProject = projects.find((p) => p.slug === openSlug) ?? null;
 

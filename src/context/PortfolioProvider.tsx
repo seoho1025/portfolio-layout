@@ -9,20 +9,20 @@ import { getPortfolio, type PortfolioData } from "../lib/portfolio";
 const PortfolioContext = createContext< PortfolioData | null >(null);
 
 export function PortfolioProvider({ children } : {children : ReactNode}){
-    const [ data, setDate ] = useState<PortfolioData | null>(null); // 처음에는 로딩 중 
+    const [ data, setData ] = useState<PortfolioData | null>(null); // 처음에는 로딩 중
     const [ failed, setFailed ] = useState(false); // fetch 실패 여부
     // 앱 시작 시 한 번만 실행 
     useEffect(() => {
         getPortfolio()
-        .then(setDate) // 성공 시 data에 저장 -> 재렌더 
+        .then(setData) // 성공 시 data에 저장 -> 재렌더
         .catch((err) => { // 실패 시 console에 원인을 표시하고 실패 메시지 전송 
             console.error(err);
             setFailed(true);
         });
     }, []);
 
-    if(failed) return <div>불러오는 중...</div>;
-    if(!failed) return <div>불러오지 못했어요</div>;
+    if(failed) return <div>불러오지 못했어요</div>;
+    if(!data) return <div>불러오는 중...</div>;
 
     return(
         <PortfolioContext.Provider value={data}>

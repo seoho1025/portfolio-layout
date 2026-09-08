@@ -14,18 +14,3 @@ export type Profile = {
   velog : string;
 };
 
-export const profile: Profile = {
-  name: '',
-  tagline: '',
-  summary: '',
-  lastUpdate: '',
-  photo: '/profile.jpg',
-  birthdate: '',
-  location: '',
-  education: '',
-  about: '',
-  email: '',
-  github: '',
-  resumeUrl: '',
-  velog: ''
-};
