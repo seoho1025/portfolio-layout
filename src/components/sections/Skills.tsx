@@ -1,18 +1,24 @@
 import type { IconType } from 'react-icons';
 import { MotionConfig, motion } from 'motion/react';
-import { FaAws, FaJira, FaSlack } from 'react-icons/fa6';
+import { FaAws, FaJava, FaSlack } from 'react-icons/fa6';
 import {
+  SiCss,
+  SiDiscord,
   SiDocker,
+  SiExpo,
   SiFastapi,
   SiFigma,
-  SiGit,
+  SiGithub,
+  SiHtml5,
+  SiJavascript,
+  SiJira,
+  SiMysql,
   SiNextdotjs,
   SiNotion,
   SiPostgresql,
   SiReact,
   SiRedux,
   SiSpringboot,
-  SiSwagger,
   SiTailwindcss,
   SiTypescript,
 } from 'react-icons/si';
@@ -22,26 +28,42 @@ import styles from './Skills.module.css';
 
 type IconSpec = { Icon: IconType; color: string };
 
+// key = DB skills.items 의 name 과 정확히 일치해야 함
 const ICONS: Record<string, IconSpec | IconSpec[]> = {
+  // frontend
   React: { Icon: SiReact, color: '#149eca' },
-  TypeScript: { Icon: SiTypescript, color: '#3178c6' },
   'Next.js': { Icon: SiNextdotjs, color: '#1c1c2e' },
-  'Spring Boot': { Icon: SiSpringboot, color: '#6db33f' },
-  Tailwind: { Icon: SiTailwindcss, color: '#0ea5c4' },
-  'React Native': { Icon: SiReact, color: '#149eca' },
-  'Zustand / Redux': { Icon: SiRedux, color: '#764abc' },
-  FastAPI: { Icon: SiFastapi, color: '#009688' },
-  'PostgreSQL / MySQL': { Icon: SiPostgresql, color: '#4169e1' },
+  'ReactNative(expo)': { Icon: SiExpo, color: '#1c1c2e' },
+  HTML: { Icon: SiHtml5, color: '#e34f26' },
+  TailWind: { Icon: SiTailwindcss, color: '#0ea5c4' },
+  Css: { Icon: SiCss, color: '#1572b6' },
+  Zustand: { Icon: SiReact, color: '#8d6748' }, // 전용 아이콘 없음 — 임시
+  Redux: { Icon: SiRedux, color: '#764abc' },
+  TypeScript: { Icon: SiTypescript, color: '#3178c6' },
+  JavaScript: { Icon: SiJavascript, color: '#e8b400' },
+
+  // backend
+  SpringBoot: { Icon: SiSpringboot, color: '#6db33f' },
+  'Fast API': { Icon: SiFastapi, color: '#009688' },
+  'PostgreSQL / MySQL': [
+    { Icon: SiPostgresql, color: '#4169e1' },
+    { Icon: SiMysql, color: '#00758f' },
+  ],
+  'PostSQL / MySQL': [
+    { Icon: SiPostgresql, color: '#4169e1' },
+    { Icon: SiMysql, color: '#00758f' },
+  ],
   Docker: { Icon: SiDocker, color: '#2496ed' },
   AWS: { Icon: FaAws, color: '#e8850c' },
-  Git: { Icon: SiGit, color: '#f05032' },
+  Java: { Icon: FaJava, color: '#e76f00' },
+
+  // tools
+  GitHub: { Icon: SiGithub, color: '#1c1c2e' },
   Figma: { Icon: SiFigma, color: '#f24e1e' },
-  Swagger: { Icon: SiSwagger, color: '#6ba539' },
-  '협업 도구': [
-    { Icon: SiNotion, color: '#1c1c2e' },
-    { Icon: FaSlack, color: '#4a154b' },
-    { Icon: FaJira, color: '#0052cc' },
-  ],
+  Slack: { Icon: FaSlack, color: '#4a154b' },
+  Jira: { Icon: SiJira, color: '#0052cc' },
+  Notion: { Icon: SiNotion, color: '#1c1c2e' },
+  Discord: { Icon: SiDiscord, color: '#5865f2' },
 };
 
 function resolveIcons(name: string): IconSpec[] {

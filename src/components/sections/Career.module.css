@@ -66,8 +66,8 @@
 .role {
   padding: 7px 14px;
   border-radius: var(--radius-md);
-  background: var(--color-surface-inverse);
-  color: var(--color-text-on-inverse);
+  background: var(--color-primary-tint);
+  color: var(--color-primary);
   font-size: 13px;
   font-weight: var(--font-weight-bold);
 }

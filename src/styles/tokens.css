@@ -96,6 +96,14 @@
   --gradient-card-b: linear-gradient(145deg, #ecf0ff, #f0edff 55%, #fff1eb);
   --gradient-card-c: linear-gradient(145deg, #f1edff, #f7edfa 55%, #ffeef2);
 
+  /* GitHub 잔디 = 카드 파스텔 톤에 맞춘 라벤더→페리윙클 램프
+   * Archive(.cell) 에서 data-level 0~4 로 사용 */
+  --grass-0: #e9ecf7;
+  --grass-1: #dfe4ff;
+  --grass-2: #b8c4fb;
+  --grass-3: #8ea0f6;
+  --grass-4: #5b7cfa;
+
   /* ==========================================================
    * 3) TYPOGRAPHY
    * ======================================================== */

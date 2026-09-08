@@ -12,40 +12,35 @@ type ProjectModalProps = {
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
-  const [idx, setIdx] = useState(0);
+  // 지금 보여줄 사진 번호 (0부터 시작)
+  const [num, setNum] = useState(0);
 
-  // 모달에 보여줄 이미지들: images 있으면 그것, 없으면 thumbnail 한 장
-  const gallery =
-    project && project.images.length > 0
-      ? project.images
-      : project && project.thumbnail
-        ? [project.thumbnail]
-        : [];
+  // 다른 프로젝트를 열면 다시 0번 사진으로
+  useEffect(() => {
+    setNum(0);
+  }, [project]);
 
+  // 모달 열려있는 동안: ESC 로 닫기 + 뒤 페이지 스크롤 막기
   useEffect(() => {
     if (!project) return;
-    setIdx(0); // 다른 프로젝트 열면 첫 장부터
-
-    const len =
-      project.images.length > 0 ? project.images.length : project.thumbnail ? 1 : 0;
-
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
-      if (len > 1 && e.key === 'ArrowRight') setIdx((i) => (i + 1) % len);
-      if (len > 1 && e.key === 'ArrowLeft') setIdx((i) => (i - 1 + len) % len);
     };
     document.addEventListener('keydown', onKey);
     const prev = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+    // 닫힐 때 원래대로 되돌림
     return () => {
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = prev;
     };
   }, [project, onClose]);
 
+  // createPortal = 모달을 컴포넌트 트리 말고 body 밑에 직접 그림 (다른 요소에 안 가려지게)
   return createPortal(
     <AnimatePresence>
       {project && (
+        // 어두운 배경 — 클릭하면 닫힘
         <motion.div
           className={styles.backdrop}
           onClick={onClose}
@@ -54,6 +49,7 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.22 }}
         >
+          {/* 실제 창 — 안쪽 클릭은 닫히지 않게 stopPropagation */}
           <motion.div
             className={styles.modal}
             role="dialog"
@@ -80,44 +76,45 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             <div className={styles.body}>
-              <div className={styles.gallery} data-empty={gallery.length === 0}>
-                {gallery.length > 0 ? (
-                  <img
-                    src={gallery[idx]}
-                    alt={`${project.title} 이미지 ${idx + 1}`}
-                  />
-                ) : (
-                  <span>{project.title}</span>
-                )}
+              {/* 사진 (num 번째) */}
+              {project.images.length > 0 && (
+                <div className={styles.thumb}>
+                  <img src={project.images[num]} alt={project.title} />
+                </div>
+              )}
 
-                {gallery.length > 1 && (
-                  <>
-                    <button
-                      type="button"
-                      className={styles.galleryPrev}
-                      onClick={() =>
-                        setIdx((i) => (i - 1 + gallery.length) % gallery.length)
+              {/* 사진 2장 이상일 때만 넘기기 버튼 */}
+              {project.images.length > 1 && (
+                <div className={styles.gallery}>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // 0보다 클 때만 뒤로
+                      if (num > 0) {
+                        setNum(num - 1);
                       }
-                      aria-label="이전 이미지"
-                    >
-                      ‹
-                    </button>
-                    <button
-                      type="button"
-                      className={styles.galleryNext}
-                      onClick={() => setIdx((i) => (i + 1) % gallery.length)}
-                      aria-label="다음 이미지"
-                    >
-                      ›
-                    </button>
-                    <div className={styles.dots} aria-hidden="true">
-                      {gallery.map((_, i) => (
-                        <span key={i} data-active={i === idx} />
-                      ))}
-                    </div>
-                  </>
-                )}
-              </div>
+                    }}
+                  >
+                    이전
+                  </button>
+
+                  <span>
+                    {num + 1} / {project.images.length}
+                  </span>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      // 마지막 장이 아닐 때만 앞으로
+                      if (num < project.images.length - 1) {
+                        setNum(num + 1);
+                      }
+                    }}
+                  >
+                    다음
+                  </button>
+                </div>
+              )}
 
               <dl className={styles.metaGrid}>
                 <div>
