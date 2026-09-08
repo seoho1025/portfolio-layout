@@ -3,7 +3,6 @@ import { NAV_SECTIONS, SECTION_IDS } from '../../config/section';
 import { usePortfolio } from '../../context/PortfolioProvider';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import { scrollToSection } from '../../lib/scroll';
-import ThemeSwitcher from './ThemeSwitcher';
 import styles from './Gnb.module.css';
 
 type GnbProps = {
@@ -67,9 +66,8 @@ export default function Gnb({ onAdminClick }: GnbProps) {
           ))}
         </nav>
 
-        {/* 우측 액션 영역: 테마 토글 + 관리자 로그인 */}
+        {/* 우측 액션 영역: 관리자 로그인 */}
         <div className={styles.actions}>
-          <ThemeSwitcher />
           <button
             type="button"
             className={styles.login}
