@@ -66,8 +66,9 @@
 .role {
   padding: 7px 14px;
   border-radius: var(--radius-md);
-  background: var(--color-primary-tint);
-  color: var(--color-primary);
+  /* Skills / Archive 카드랑 같은 파스텔 그라데이션 */
+  background: var(--gradient-card-a);
+  color: var(--color-text-strong);
   font-size: 13px;
   font-weight: var(--font-weight-bold);
 }
@@ -87,7 +88,8 @@
 
 .itemTitle {
   padding-left: 14px;
-  border-left: 3px solid var(--color-primary);
+  /* 파란 실선 대신 파스텔 그라데이션 세로 바 (배경으로 그림) */
+  background: linear-gradient(180deg, #9db0f2, #e6acdd) left / 3px 100% no-repeat;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   line-height: 1.35;

@@ -73,17 +73,17 @@
 }
 
 .thumb {
-  aspect-ratio: 16 / 10;    /* 모든 사진이 같은 크기 상자에 들어감 */
   border-radius: var(--radius-lg);
   overflow: hidden;
-  background: var(--gradient-card-b);
   margin-bottom: 16px;
 }
 .thumb img {
   display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;      /* 잘리지 않고 전체가 보임 (남는 공간은 배경) */
+  width: 100%;            /* 가로 폭 꽉 채움 */
+  height: auto;           /* 비율 유지 */
+  max-height: 65vh;       /* 세로로 긴 스크린샷이 화면 넘지 않게 */
+  object-fit: contain;
+  margin: 0 auto;         /* max-height 걸리면 가운데 */
   border-radius: var(--radius-lg);
 }
 
