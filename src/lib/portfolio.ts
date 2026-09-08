@@ -81,6 +81,7 @@ export async function getProjects() : Promise<Project[]>{
         title : row.title,
         parts : row.parts,
         thumbnail : row.thumbnail,
+        images : row.images ?? [],
         featured : row.featured,
         stack : row.stack,
         period : row.period,

@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'motion/react';
 import type { Project } from '../../data/projects';
@@ -12,10 +12,27 @@ type ProjectModalProps = {
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const [idx, setIdx] = useState(0);
+
+  // 모달에 보여줄 이미지들: images 있으면 그것, 없으면 thumbnail 한 장
+  const gallery =
+    project && project.images.length > 0
+      ? project.images
+      : project && project.thumbnail
+        ? [project.thumbnail]
+        : [];
+
   useEffect(() => {
     if (!project) return;
+    setIdx(0); // 다른 프로젝트 열면 첫 장부터
+
+    const len =
+      project.images.length > 0 ? project.images.length : project.thumbnail ? 1 : 0;
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
+      if (len > 1 && e.key === 'ArrowRight') setIdx((i) => (i + 1) % len);
+      if (len > 1 && e.key === 'ArrowLeft') setIdx((i) => (i - 1 + len) % len);
     };
     document.addEventListener('keydown', onKey);
     const prev = document.body.style.overflow;
@@ -63,11 +80,42 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
             </div>
 
             <div className={styles.body}>
-              <div className={styles.thumb} data-empty={!project.thumbnail}>
-                {project.thumbnail ? (
-                  <img src={project.thumbnail} alt={project.title} />
+              <div className={styles.gallery} data-empty={gallery.length === 0}>
+                {gallery.length > 0 ? (
+                  <img
+                    src={gallery[idx]}
+                    alt={`${project.title} 이미지 ${idx + 1}`}
+                  />
                 ) : (
                   <span>{project.title}</span>
+                )}
+
+                {gallery.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      className={styles.galleryPrev}
+                      onClick={() =>
+                        setIdx((i) => (i - 1 + gallery.length) % gallery.length)
+                      }
+                      aria-label="이전 이미지"
+                    >
+                      ‹
+                    </button>
+                    <button
+                      type="button"
+                      className={styles.galleryNext}
+                      onClick={() => setIdx((i) => (i + 1) % gallery.length)}
+                      aria-label="다음 이미지"
+                    >
+                      ›
+                    </button>
+                    <div className={styles.dots} aria-hidden="true">
+                      {gallery.map((_, i) => (
+                        <span key={i} data-active={i === idx} />
+                      ))}
+                    </div>
+                  </>
                 )}
               </div>
 

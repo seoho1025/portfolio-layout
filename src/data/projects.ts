@@ -17,6 +17,7 @@ export type Project = {
   title: string;
   parts: string;
   thumbnail: string;
+  images : string[];
   featured: boolean;
   stack: string[];
   period: string;
