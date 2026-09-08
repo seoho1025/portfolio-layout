@@ -3,7 +3,6 @@
   border-radius: 20px;
   padding: 24px;
   background: var(--gradient-card-a);
-  background: linear-gradient(in oklch 145deg, #eef1ff, #f2efff 50%, #ffeff4);
 }
 
 /* 흰 반투명 유리 판 (카드 안에 중첩) */

@@ -1,4 +1,5 @@
 .hero {
+  position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -12,5 +13,64 @@
   font-size: var(--font-size-5xl);
   font-weight: var(--font-weight-heavy);
   line-height: var(--line-height-tight);
-  color: var(--color-text-strong);
+  color: var(--color-heading);
+}
+
+/* 테마 색상 선택 (관리자 로그인 시에만) — hero 우하단 */
+/* 화면 우하단 고정. hero 벗어나면 JS 로 숨김 */
+.picker {
+  position: fixed;
+  right: clamp(1rem, 4vw, 2.5rem);
+  bottom: clamp(1rem, 4vw, 2.5rem);
+  z-index: 90;
+}
+
+.trigger {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(20, 24, 29, 0.22);
+  transition: transform 0.15s ease;
+}
+.trigger:hover {
+  transform: scale(1.08);
+}
+
+/* 드롭다운이 위로 열림 (트리거가 아래에 있어서) */
+.menu {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 128px;
+  padding: 6px;
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  box-shadow: var(--shadow-lg);
+}
+.item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  font-size: 13px;
+  color: var(--color-text);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.item:hover {
+  background: var(--color-bg-subtle);
+}
+.dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }

@@ -90,8 +90,8 @@
 
 .itemTitle {
   padding-left: 14px;
-  /* 파란 실선 대신 파스텔 그라데이션 세로 바 (배경으로 그림) */
-  background: linear-gradient(180deg, #9db0f2, #e6acdd) left / 3px 100% no-repeat;
+  /* 파스텔 세로 바 (회사 테마 시 회사색). background 로 그림 */
+  background: var(--accent-bar) left / 3px 100% no-repeat;
   font-size: var(--font-size-lg);
   font-weight: var(--font-weight-bold);
   line-height: 1.35;

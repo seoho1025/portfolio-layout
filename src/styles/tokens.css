@@ -92,17 +92,23 @@
    * a = Skills(.card)
    * b = Projects(.card) / ProjectModal(.hero)
    * c = Projects(.card 변형) */
-  --gradient-card-a: linear-gradient(145deg,#eef1ff,#f2efff 50%,#ffeff4);
-  --gradient-card-b: linear-gradient(145deg, #ecf0ff, #f0edff 55%, #fff1eb);
-  --gradient-card-c: linear-gradient(145deg, #f1edff, #f7edfa 55%, #ffeef2);
+  --gradient-card-a: linear-gradient(in oklch 145deg, #e6ebff, #efe9ff 50%, #ffe9f1);
+  --gradient-card-b: linear-gradient(in oklch 145deg, #e4ecff, #ece7ff 55%, #ffe9e0);
+  --gradient-card-c: linear-gradient(in oklch 145deg, #ebe6ff, #f3e6fa 55%, #ffe4ec);
 
-  /* GitHub 잔디 = 카드 파스텔 톤에 맞춘 라벤더→페리윙클 램프
-   * Archive(.cell) 에서 data-level 0~4 로 사용 */
-  --grass-0: #e9ecf7;
-  --grass-1: #dfe4ff;
-  --grass-2: #b8c4fb;
-  --grass-3: #8ea0f6;
-  --grass-4: #5b7cfa;
+  /* 강조 세로 바 (Career .itemTitle 왼쪽) — 회사 테마 시 회사색으로 */
+  --accent-bar: linear-gradient(180deg, #9db0f2, #e6acdd);
+
+  /* 큰 제목 색 (Hero 이름, Overview 헤드라인, 섹션 제목) — 기본은 진한 회색 */
+  --color-heading: var(--color-text-strong);
+
+  /* GitHub 잔디 = 카드 파스텔 톤에 맞춘 로즈/핑크 램프
+   * Archive(.cell) 에서 data-level 0~4 로 사용. 회사 테마 시엔 회사색으로 덮임 */
+  --grass-0: #f4eef1;
+  --grass-1: #fbe1ec;
+  --grass-2: #f6bcd6;
+  --grass-3: #ef94ba;
+  --grass-4: #e56d9c;
 
   /* ==========================================================
    * 3) TYPOGRAPHY
@@ -192,4 +198,63 @@
   --avatar-eye: #0F1215;
 
 
+}
+
+/* ============================================================
+ * 회사 테마 = 제출할 회사 색으로 전체 톤 전환 (다크모드처럼)
+ * settings 테이블의 active_theme 이 <html data-theme="..."> 를 세팅
+ *
+ * 각 블록이 하는 일:
+ *  1. --tc 에 그 회사 색을 담음
+ *  2. 아래 "테마 공통 규칙" 이 --tc 로 강조색·그라데이션·잔디를 자동 생성
+ *     (color-mix = 회사색 + 흰색 섞어서 옅게)
+ * ============================================================ */
+
+/* 회사 대표색 (Hero 선택 원 + data-theme 블록이 공유) */
+:root {
+  --theme-default: #2d6af7;
+  --theme-toss: #0062ff;
+  --theme-naver: #06c63a;
+  --theme-daangn: #fc710e;
+  --theme-baemin: #2bbab7;
+  --theme-kakao: #eede0a;
+}
+
+:root[data-theme='toss']   { --tc: var(--theme-toss); }
+:root[data-theme='naver']  { --tc: var(--theme-naver); }
+:root[data-theme='daangn'] { --tc: var(--theme-daangn); }
+:root[data-theme='baemin'] { --tc: var(--theme-baemin); }
+:root[data-theme='kakao']  { --tc: var(--theme-kakao); }
+
+/* 테마 공통 규칙 = --tc 가 있을 때만 적용 */
+:root[data-theme] {
+  --color-primary: var(--tc);
+  --color-primary-strong: color-mix(in srgb, var(--tc) 85%, #000);
+  --color-primary-tint: color-mix(in srgb, var(--tc) 10%, transparent);
+
+  /* 파스텔 카드 = 회사색을 확실히 살린 그라데이션 (연한 쪽 ~ 진한 쪽) */
+  --gradient-card-a: linear-gradient(
+    in oklch 145deg,
+    color-mix(in srgb, var(--tc) 16%, #fff),
+    color-mix(in srgb, var(--tc) 9%, #fff) 50%,
+    color-mix(in srgb, var(--tc) 28%, #fff)
+  );
+  --gradient-card-b: var(--gradient-card-a);
+  --gradient-card-c: var(--gradient-card-a);
+
+  --accent-bar: linear-gradient(
+    180deg,
+    var(--tc),
+    color-mix(in srgb, var(--tc) 50%, #fff)
+  );
+
+  /* 제목 = 회사색 그대로 */
+  --color-heading: var(--tc);
+
+  /* 잔디 램프 = 회사색 농도별 */
+  --grass-0: color-mix(in srgb, var(--tc) 6%, var(--color-bg-subtle));
+  --grass-1: color-mix(in srgb, var(--tc) 15%, #fff);
+  --grass-2: color-mix(in srgb, var(--tc) 35%, #fff);
+  --grass-3: color-mix(in srgb, var(--tc) 60%, #fff);
+  --grass-4: var(--tc);
 }

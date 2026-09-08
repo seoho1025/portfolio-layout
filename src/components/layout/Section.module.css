@@ -13,6 +13,6 @@
 .title {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-extrabold);
-  color: var(--color-text-strong);
+  color: var(--color-heading);
   margin-bottom: var(--space-8);
 }

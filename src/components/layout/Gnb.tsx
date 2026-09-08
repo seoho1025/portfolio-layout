@@ -6,7 +6,11 @@ import { scrollToSection } from '../../lib/scroll';
 import ThemeSwitcher from './ThemeSwitcher';
 import styles from './Gnb.module.css';
 
-export default function Gnb() {
+type GnbProps = {
+  onAdminClick: () => void;
+};
+
+export default function Gnb({ onAdminClick }: GnbProps) {
   const { profile } = usePortfolio();
 
   // flat: 첫 화면(히어로)을 벗어났는지 여부
@@ -63,9 +67,16 @@ export default function Gnb() {
           ))}
         </nav>
 
-        {/* 우측 액션 영역: 라이트/다크 테마 토글 */}
+        {/* 우측 액션 영역: 테마 토글 + 관리자 로그인 */}
         <div className={styles.actions}>
           <ThemeSwitcher />
+          <button
+            type="button"
+            className={styles.login}
+            onClick={onAdminClick}
+          >
+            로그인
+          </button>
         </div>
       </div>
     </header>
