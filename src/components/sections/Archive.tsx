@@ -5,9 +5,11 @@ import styles from './Archive.module.css';
 
 // 내 깃허브 아이디
 const GITHUB_USER = 'seoho1025';
+// 잔디를 보여줄 연도
+const YEAR = new Date().getFullYear();
 
 export default function Archive() {
-  const { days, total, commits } = useGithubActivity(GITHUB_USER);
+  const { days, total, commits } = useGithubActivity(GITHUB_USER, YEAR);
 
   return (
     <Section id="archive" title="Archive">
@@ -15,11 +17,11 @@ export default function Archive() {
         {/* 잔디 카드 */}
         <div className={styles.card}>
           <div className={styles.cardHead}>
-            <span className={styles.cardTitle}>지난 1년 커밋</span>
+            <span className={styles.cardTitle}>{YEAR}년 커밋</span>
             <span className={styles.total}>{total}회</span>
           </div>
 
-          {/* 날짜 하나당 칸 하나. data-level 로 색 결정 (CSS에서) */}
+          {/* 날짜 하나당 칸 하나. 호버하면 CSS 로 날짜 툴팁 뜸 */}
           <div className={styles.gridScroll}>
             <div className={styles.grid}>
               {days.map((day) => (
@@ -27,7 +29,7 @@ export default function Archive() {
                   key={day.date}
                   className={styles.cell}
                   data-level={day.level}
-                  title={`${day.date} · ${day.count}회`}
+                  data-tip={`${day.date} · ${day.count}회`}
                 />
               ))}
             </div>

@@ -27,7 +27,13 @@
 
 /* ── 잔디 그리드 ── */
 .gridScroll {
-  overflow-x: auto;
+  /* 데스크탑은 그냥 들어감. 좁은 화면만 가로 스크롤 (툴팁 안 잘리게) */
+  padding: 24px 0 6px;
+}
+@media (max-width: 820px) {
+  .gridScroll {
+    overflow-x: auto;
+  }
 }
 .grid {
   display: grid;
@@ -38,10 +44,28 @@
   width: max-content;
 }
 .cell {
+  position: relative;
   width: 11px;
   height: 11px;
   border-radius: 2px;
   background: var(--grass-0);
+}
+
+/* 호버 시 날짜 툴팁 (깃허브처럼) */
+.cell[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: var(--gray-950);
+  color: #fff;
+  font-size: 11px;
+  white-space: nowrap;
+  z-index: 10;
+  pointer-events: none;
 }
 .cell[data-level='1'] {
   background: var(--grass-1);

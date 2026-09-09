@@ -3,6 +3,7 @@ import { NAV_SECTIONS, SECTION_IDS } from '../../config/section';
 import { usePortfolio } from '../../context/PortfolioProvider';
 import { useActiveSection } from '../../hooks/useActiveSection';
 import { scrollToSection } from '../../lib/scroll';
+import { supabase } from '../../lib/supabase';
 import styles from './Gnb.module.css';
 
 type GnbProps = {
@@ -20,6 +21,16 @@ export default function Gnb({ onAdminClick }: GnbProps) {
   // active: 현재 화면에 보이는 섹션 id
   //  - 스크롤에 따라 GNB 항목 하이라이트(메인 색)를 옮기는 데 사용
   const active = useActiveSection(SECTION_IDS);
+
+  // 관리자 로그인 여부 (로그인 버튼 ↔ 로그아웃 버튼 전환)
+  const [loggedIn, setLoggedIn] = useState(false);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setLoggedIn(!!data.session));
+    const { data: sub } = supabase.auth.onAuthStateChange((_e, session) => {
+      setLoggedIn(!!session);
+    });
+    return () => sub.subscription.unsubscribe();
+  }, []);
 
   useEffect(() => {
     // 스크롤이 첫 뷰포트 85%를 넘으면 flat = true
@@ -66,14 +77,20 @@ export default function Gnb({ onAdminClick }: GnbProps) {
           ))}
         </nav>
 
-        {/* 우측 액션 영역: 관리자 로그인 */}
+        {/* 우측 액션 영역: 로그인 상태면 로그아웃, 아니면 로그인 패널 열기 */}
         <div className={styles.actions}>
           <button
             type="button"
             className={styles.login}
-            onClick={onAdminClick}
+            onClick={() => {
+              if (loggedIn) {
+                supabase.auth.signOut();
+              } else {
+                onAdminClick();
+              }
+            }}
           >
-            로그인
+            {loggedIn ? '로그아웃' : '로그인'}
           </button>
         </div>
       </div>
